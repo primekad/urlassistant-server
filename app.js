@@ -5,8 +5,12 @@ const service = require("./dbservices.js");
 const { response } = require("express");
 const app = express();
 
-app.listen(3000);
-console.log("Listening on 3000");
+let port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log("Listening on 3000");
+});
+
 app.use("/assets", express.static(__dirname + "/images"));
 app.use(express.json());
 app.get("/", (req, res) => {

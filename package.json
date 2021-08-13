@@ -1,6 +1,16 @@
 {
+  "name": "urlassistant-server",
+  "version": "1.0.0",
+  "description": "Url assistant backend",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "express": "^4.17.1",
     "firebase-admin": "^9.11.0"
+  },
+  "engines": {
+    "node": "14.15.4"
   }
 }
