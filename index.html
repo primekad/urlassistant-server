@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      background-color: rgb(41, 90, 119);
+      font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+      text-align: center;
+    }
+    h1 {
+      color: #fff;
+    }
+
+    .card {
+      /* Add shadows to create the "card" effect */
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+      background-color: #fff;
+      margin-bottom: 15px;
+      margin-right: 15px;
+      width: 20%;
+      float: left;
+    }
+
+    /* On mouse-over, add a deeper shadow */
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* Add some padding inside the card container */
+    .container {
+      padding: 2px 16px;
+    }
+    .domain {
+      background-color: #eaeaea;
+      height: 100px;
+      padding-top: 50px;
+      font-size: 40px;
+    }
+  </style>
+  <body>
+    <h1 style="text-align: center">URL Assistant Saved Pages</h1>
+    <div id="mainContainer"></div>
+  </body>
+
+  <script>
+    function cardTemplate(url, saveDate, domain, saveCount) {
+      let cardTemplate = `<div class="card">
+      <div class="domain">
+        ${domain}
+        </div>
+      <div class="container">
+        <span>Saved Page: </span><a href="${url}">${url}</a>
+        <p>Number of times Saved: <span style="">${saveCount}</span></p>
+        <p>Last Saved: <span style="">${saveDate}</span></p>
+      </div>
+    </div>`;
+      return cardTemplate;
+    }
+    window.onload = function () {
+      fetch("api/getAllSavedPages/", {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json);
+          json.forEach((element) => {
+            document.getElementById("mainContainer").innerHTML += cardTemplate(
+              element.pageUrl,
+              element.saveDate,
+              element.domain,
+              element.saveCount
+            );
+          });
+        })
+        .catch((err) => console.log(err));
+    };
+  </script>
+</html>
